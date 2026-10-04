@@ -24,9 +24,9 @@ export default function App() {
   const [tableOpen, setTableOpen] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">(() => {
     try {
-      return localStorage.getItem("overpay-theme") === "light" ? "light" : "dark";
+      return localStorage.getItem("overpay-theme") === "dark" ? "dark" : "light";
     } catch {
-      return "dark";
+      return "light";
     }
   });
 
