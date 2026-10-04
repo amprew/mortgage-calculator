@@ -49,7 +49,7 @@ export default function App() {
   return (
     <div className="wrap">
       <header className="topbar">
-        <div className="brand"><span className="brand-mark">🔒</span> overpay.calc</div>
+        <div className="brand"><span className="brand-mark">🔒</span> OS Repayments</div>
         <div className="header-actions">
         <div className="pulse-wrap">
           <div className="pulse-badge"><span className="pulse-dot" />Privacy-first: <b>calculated locally</b></div>
