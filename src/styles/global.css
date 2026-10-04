@@ -524,16 +524,52 @@ input[type="range"]::-webkit-slider-thumb {
 
 .chart {
   width: 100%;
-  height: auto;
+  height: 320px;
+  min-width: 0;
   display: block;
   margin-top: 10px;
-  overflow: visible;
+  font-family: var(--font-mono);
 }
 
-.axis-label {
-  font-size: 10.5px;
-  fill: var(--text-3);
+.chart-tooltip {
+  max-width: 280px;
+  padding: 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--tooltip-bg);
+  color: var(--text-2);
   font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.chart-tooltip strong {
+  display: block;
+  color: var(--text-1);
+  margin-bottom: 6px;
+}
+
+.chart-tooltip > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.chart-tooltip-overpay {
+  color: var(--mint);
+}
+
+.chart-tooltip-difference {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+  color: var(--text-1);
+}
+
+@media (max-width: 640px) {
+  .chart {
+    height: 260px;
+  }
 }
 
 .table-card {

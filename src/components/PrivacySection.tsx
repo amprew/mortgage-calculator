@@ -5,7 +5,7 @@ export default function PrivacySection() {
     <div className="privacy-section">
       <div className="privacy-grid">
         <div>
-          <h3>Why &quot;nothing shared&quot; actually matters here</h3>
+          <h3>Why "nothing shared" actually matters here</h3>
           <p>
             A mortgage calculator asks for your property value, your deposit, your income situation, some of your most sensitive numbers.
             Most calculators quietly send that to a server, log it, and hand it to whoever bought a marketing partnership.
