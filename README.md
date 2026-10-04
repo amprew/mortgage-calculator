@@ -1,6 +1,6 @@
-# Mortgage Calculator v2 (React)
+# Mortgage Calculator
 
-This project was converted from a single-page HTML calculator to a React and TypeScript package using Vite.
+An open-source mortgage calculator. See exactly what overpaying does to a loan.
 
 ## Scripts
 
