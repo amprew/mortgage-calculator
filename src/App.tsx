@@ -128,7 +128,8 @@ export default function App() {
       <PrivacySection />
 
       <footer>
-        Estimates are for comparison only and are not financial advice.
+        <p>Estimates are for comparison only and are not financial advice.</p>
+        <p><a href="https://github.com/amprew/mortgage-calculator">View open-source project on GitHub.</a></p>
       </footer>
     </div>
   );

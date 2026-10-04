@@ -728,3 +728,7 @@ footer {
   background: var(--coral);
   color: #fff;
 }
+
+a {
+  color: var(--coral);
+}
