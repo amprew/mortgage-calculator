@@ -10,6 +10,7 @@ An open-source mortgage calculator. See exactly what overpaying does to a loan.
 - `npm run dev` to run the React app
 - `npm run typecheck` to check all source, stories, and configuration types
 - `npm run build` to typecheck and build the package
+- `npm run build:pages` to typecheck and generate GitHub Pages files in `dist/`
 - `npm run storybook` to open the styleguide
 - `npm run build-storybook` to export the styleguide
 
@@ -25,3 +26,19 @@ An open-source mortgage calculator. See exactly what overpaying does to a loan.
 ## Notes
 
 The package keeps all mortgage calculations in the browser and does not call external APIs.
+
+## GitHub Pages Deployment
+
+1. In `amprew/mortgage-calculator`, open **Settings > Pages** and select **GitHub Actions** as the build and deployment source.
+2. To generate the static files locally, run:
+
+	```sh
+	npm ci
+	npm run build:pages
+	```
+
+	The output is `dist/index.html` and `dist/assets/`. This build uses `/mortgage-calculator/` as the asset base path. The normal build and development server are unchanged.
+3. Commit and push the deployment workflow, build script, and documentation to `main`. The **Deploy to GitHub Pages** workflow installs dependencies, typechecks, builds, uploads `dist/`, and deploys it. Do not commit `dist/` or create a `gh-pages` branch for this workflow.
+4. Monitor the workflow in the repository's **Actions** tab. Once deployment succeeds, open <https://amprew.github.io/mortgage-calculator/>. Future pushes to `main` deploy automatically; use **Run workflow** for a manual deployment.
+
+For a local preview of the Pages build, run `npm run preview` and open the displayed server URL with `/mortgage-calculator/` appended. If using a custom domain that serves the app at the root, change the Pages build base to `/`.
