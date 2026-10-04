@@ -7,8 +7,9 @@ import InterestChart from "./components/InterestChart";
 import YearlyTable from "./components/YearlyTable";
 import PrivacySection from "./components/PrivacySection";
 import { getStateFromInputs } from "./lib/mortgage";
+import type { MortgageInputs, SetMortgageInput } from "./lib/mortgage";
 
-const defaultInputs = {
+const defaultInputs: MortgageInputs = {
   price: 350000,
   deposit: 70000,
   rate: 4.5,
@@ -19,9 +20,9 @@ const defaultInputs = {
 };
 
 export default function App() {
-  const [inputs, setInputs] = useState(defaultInputs);
+  const [inputs, setInputs] = useState<MortgageInputs>(defaultInputs);
   const [tableOpen, setTableOpen] = useState(false);
-  const [theme, setTheme] = useState(() => {
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
     try {
       return localStorage.getItem("overpay-theme") === "light" ? "light" : "dark";
     } catch {
@@ -36,7 +37,7 @@ export default function App() {
     } catch {}
   }, [theme]);
 
-  const setInput = (field, value) => {
+  const setInput: SetMortgageInput = (field, value) => {
     setInputs((current) => ({
       ...current,
       [field]: value

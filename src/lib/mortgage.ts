@@ -1,6 +1,49 @@
+export interface MortgageInputs {
+  price: number | string;
+  deposit: number | string;
+  rate: number | string;
+  term: number | string;
+  regular: number | string;
+  lump: number | string;
+  lumpMonth: number | string;
+}
+
+export type SetMortgageInput = (field: keyof MortgageInputs, value: number | string) => void;
+
+export interface HistoryEntry {
+  month: number;
+  balance: number;
+  cumInterest: number;
+}
+
+export interface SimulationResult {
+  payment: number;
+  totalInterest: number;
+  months: number;
+  history: HistoryEntry[];
+  n: number;
+}
+
+export interface MortgageState {
+  price: number;
+  deposit: number;
+  principal: number;
+  rate: number;
+  years: number;
+  regular: number;
+  lump: number;
+  lumpMonth: number;
+  baseline: SimulationResult;
+  overpay: SimulationResult;
+  interestSaved: number;
+  monthsSaved: number;
+  annualOverpay: number;
+  depositPct: number;
+}
+
 export const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-export function formatCurrency(value, decimals = 0) {
+export function formatCurrency(value: number, decimals = 0): string {
   return new Intl.NumberFormat("en-GB", {
     style: "currency",
     currency: "GBP",
@@ -8,13 +51,13 @@ export function formatCurrency(value, decimals = 0) {
   }).format(Math.max(0, value));
 }
 
-export function addMonths(date, months) {
+export function addMonths(date: Date, months: number): Date {
   const d = new Date(date.getTime());
   d.setMonth(d.getMonth() + months);
   return d;
 }
 
-export function simulate(principal, annualRatePct, years, regularOverpay, lumpSum, lumpMonth) {
+export function simulate(principal: number, annualRatePct: number, years: number, regularOverpay: number, lumpSum: number, lumpMonth: number): SimulationResult {
   const r = annualRatePct / 100 / 12;
   const n = Math.max(1, Math.round(years * 12));
   const payment = r === 0 ? principal / n : (principal * r) / (1 - Math.pow(1 + r, -n));
@@ -49,7 +92,7 @@ export function simulate(principal, annualRatePct, years, regularOverpay, lumpSu
   return { payment, totalInterest, months: month, history, n };
 }
 
-export function getStateFromInputs(inputs) {
+export function getStateFromInputs(inputs: MortgageInputs): MortgageState {
   const price = Math.max(0, Number(inputs.price) || 0);
   const normalizedDeposit = Math.min(Math.max(0, Number(inputs.deposit) || 0), price);
   const principal = Math.max(1000, price - normalizedDeposit);

@@ -1,7 +1,29 @@
 import React from "react";
 import { formatCurrency } from "../lib/mortgage";
+import type { MortgageInputs, MortgageState, SetMortgageInput } from "../lib/mortgage";
 
-function NumberField({ label, hint, valueText, input, prefix }) {
+interface NumberFieldProps {
+  label: string;
+  hint?: string;
+  valueText: string;
+  prefix?: boolean;
+  input: {
+    value: number | string;
+    min?: number;
+    max?: number;
+    step?: number;
+    disabled?: boolean;
+    onChange: React.ChangeEventHandler<HTMLInputElement>;
+  };
+}
+
+interface InputPanelProps {
+  inputs: MortgageInputs;
+  setInput: SetMortgageInput;
+  computed: MortgageState;
+}
+
+function NumberField({ label, hint, valueText, input, prefix }: NumberFieldProps) {
   return (
     <div className="field">
       <label>
@@ -16,9 +38,9 @@ function NumberField({ label, hint, valueText, input, prefix }) {
   );
 }
 
-export default function InputPanel({ inputs, setInput, computed }) {
+export default function InputPanel({ inputs, setInput, computed }: InputPanelProps) {
   const depositPct = computed.depositPct;
-  const update = (field) => (event) => setInput(field, event.target.value);
+  const update = (field: keyof MortgageInputs): React.ChangeEventHandler<HTMLInputElement> => (event) => setInput(field, event.target.value);
 
   return (
     <div className="input-panel">

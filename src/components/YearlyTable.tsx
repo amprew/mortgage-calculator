@@ -1,7 +1,15 @@
 import React from "react";
 import { formatCurrency } from "../lib/mortgage";
+import type { SimulationResult } from "../lib/mortgage";
 
-export default function YearlyTable({ baseline, overpay, isOpen, onToggle }) {
+interface YearlyTableProps {
+  baseline: SimulationResult;
+  overpay: SimulationResult;
+  isOpen: boolean;
+  onToggle: () => void;
+}
+
+export default function YearlyTable({ baseline, overpay, isOpen, onToggle }: YearlyTableProps) {
   const maxYears = Math.ceil(baseline.months / 12);
   const rows = [];
 

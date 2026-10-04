@@ -1,10 +1,19 @@
 import React, { useMemo, useState } from "react";
+import type { HistoryEntry, SimulationResult } from "../lib/mortgage";
 
-function getPoint(x, y) {
+interface BalanceChartProps {
+  baseline: SimulationResult;
+  overpay: SimulationResult;
+  principal: number;
+  lumpMonth: number;
+  lumpValue: number;
+}
+
+function getPoint(x: number, y: number) {
   return `${x.toFixed(1)},${y.toFixed(1)}`;
 }
 
-function formatCurrency(value) {
+function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-GB", {
     style: "currency",
     currency: "GBP",
@@ -12,7 +21,7 @@ function formatCurrency(value) {
   }).format(Math.max(0, value));
 }
 
-function getPointAtMonth(history, targetMonth) {
+function getPointAtMonth(history: HistoryEntry[], targetMonth: number) {
   let point = history[0];
 
   for (let index = 1; index < history.length; index += 1) {
@@ -25,8 +34,8 @@ function getPointAtMonth(history, targetMonth) {
   return point;
 }
 
-export default function BalanceChart({ baseline, overpay, principal, lumpMonth, lumpValue }) {
-  const [hoveredYear, setHoveredYear] = useState(null);
+export default function BalanceChart({ baseline, overpay, principal, lumpMonth, lumpValue }: BalanceChartProps) {
+  const [hoveredYear, setHoveredYear] = useState<number | null>(null);
 
   const width = 680;
   const height = 300;
@@ -38,8 +47,8 @@ export default function BalanceChart({ baseline, overpay, principal, lumpMonth, 
   const plotH = height - padT - padB;
   const maxMonth = Math.max(1, baseline.months);
 
-  const x = (month) => padL + (month / maxMonth) * plotW;
-  const y = (balance) => padT + (1 - balance / principal) * plotH;
+  const x = (month: number) => padL + (month / maxMonth) * plotW;
+  const y = (balance: number) => padT + (1 - balance / principal) * plotH;
 
   const baselinePts = baseline.history.map((p) => getPoint(x(p.month), y(p.balance))).join(" ");
   const overpayPts = overpay.history.map((p) => getPoint(x(p.month), y(p.balance))).join(" ");
@@ -85,7 +94,7 @@ export default function BalanceChart({ baseline, overpay, principal, lumpMonth, 
     };
   }, [hoveredYear, maxMonth, baseline.history, overpay.history]);
 
-  const onMouseMove = (event) => {
+  const onMouseMove = (event: React.MouseEvent<SVGSVGElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
 
     if (!rect.width) {

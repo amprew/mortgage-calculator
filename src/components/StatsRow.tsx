@@ -1,7 +1,15 @@
 import React from "react";
 import { addMonths, formatCurrency, monthNames } from "../lib/mortgage";
+import type { SimulationResult } from "../lib/mortgage";
 
-export default function StatsRow({ baseline, overpay, interestSaved, monthsSaved }) {
+interface StatsRowProps {
+  baseline: SimulationResult;
+  overpay: SimulationResult;
+  interestSaved: number;
+  monthsSaved: number;
+}
+
+export default function StatsRow({ baseline, overpay, interestSaved, monthsSaved }: StatsRowProps) {
   const yearsSaved = Math.floor(monthsSaved / 12);
   const remainingMonths = monthsSaved % 12;
 

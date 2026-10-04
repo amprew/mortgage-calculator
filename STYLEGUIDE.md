@@ -20,4 +20,4 @@ Core tokens are defined in `src/styles/tokens.css`:
 
 ## Storybook
 
-Run `npm run storybook` and use `stories/App.stories.jsx` as the baseline reference.
+Run `npm run storybook` and use `stories/App.stories.tsx` as the baseline reference.

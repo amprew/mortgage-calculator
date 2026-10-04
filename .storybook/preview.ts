@@ -1,7 +1,10 @@
+/// <reference types="vite/client" />
+
+import type { Preview } from "@storybook/react";
 import "../src/styles/tokens.css";
 import "../src/styles/global.css";
 
-export const parameters = {
+export const parameters: Preview["parameters"] = {
   controls: {
     matchers: {
       color: /(background|color)$/i,

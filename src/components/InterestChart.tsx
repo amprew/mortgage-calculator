@@ -1,10 +1,16 @@
 import React, { useMemo, useState } from "react";
+import type { HistoryEntry, SimulationResult } from "../lib/mortgage";
 
-function getPoint(x, y) {
+interface InterestChartProps {
+  baseline: SimulationResult;
+  overpay: SimulationResult;
+}
+
+function getPoint(x: number, y: number) {
   return `${x.toFixed(1)},${y.toFixed(1)}`;
 }
 
-function formatCurrency(value) {
+function formatCurrency(value: number) {
   return new Intl.NumberFormat("en-GB", {
     style: "currency",
     currency: "GBP",
@@ -12,7 +18,7 @@ function formatCurrency(value) {
   }).format(Math.max(0, value));
 }
 
-function getPointAtMonth(history, targetMonth) {
+function getPointAtMonth(history: HistoryEntry[], targetMonth: number) {
   let point = history[0];
 
   for (let index = 1; index < history.length; index += 1) {
@@ -25,8 +31,8 @@ function getPointAtMonth(history, targetMonth) {
   return point;
 }
 
-export default function InterestChart({ baseline, overpay }) {
-  const [hoveredYear, setHoveredYear] = useState(null);
+export default function InterestChart({ baseline, overpay }: InterestChartProps) {
+  const [hoveredYear, setHoveredYear] = useState<number | null>(null);
 
   const width = 680;
   const height = 300;
@@ -39,8 +45,8 @@ export default function InterestChart({ baseline, overpay }) {
   const maxMonth = Math.max(1, baseline.months);
   const maxInterest = Math.max(1, baseline.totalInterest, overpay.totalInterest);
 
-  const x = (month) => padL + (month / maxMonth) * plotW;
-  const y = (interest) => padT + (1 - interest / maxInterest) * plotH;
+  const x = (month: number) => padL + (month / maxMonth) * plotW;
+  const y = (interest: number) => padT + (1 - interest / maxInterest) * plotH;
 
   const baselinePts = baseline.history.map((p) => getPoint(x(p.month), y(p.cumInterest))).join(" ");
   const overpayPts = overpay.history.map((p) => getPoint(x(p.month), y(p.cumInterest))).join(" ");
@@ -83,7 +89,7 @@ export default function InterestChart({ baseline, overpay }) {
     };
   }, [hoveredYear, maxMonth, baseline.history, overpay.history]);
 
-  const onMouseMove = (event) => {
+  const onMouseMove = (event: React.MouseEvent<SVGSVGElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
 
     if (!rect.width) {
