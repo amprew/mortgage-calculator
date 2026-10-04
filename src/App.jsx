@@ -49,7 +49,7 @@ export default function App() {
       <main className="layout">
         <InputPanel inputs={inputs} setInput={setInput} computed={computed} />
 
-        <div>
+        <div className="results-panel">
           <StatsRow
             baseline={computed.baseline}
             overpay={computed.overpay}
@@ -57,7 +57,7 @@ export default function App() {
             monthsSaved={computed.monthsSaved}
           />
 
-          <div className="card chart-card">
+          <div className="card chart-card balance-panel">
             <div className="chart-head">
               <h2>Balance over time</h2>
               <div className="legend">
@@ -74,7 +74,7 @@ export default function App() {
             />
           </div>
 
-          <div className="card chart-card chart-card-secondary">
+          <div className="card chart-card interest-panel">
             <div className="chart-head">
               <h2>Interest over time</h2>
               <div className="legend">
@@ -89,13 +89,14 @@ export default function App() {
           </div>
 
         </div>
-      </main>
+
         <YearlyTable
-        baseline={computed.baseline}
-        overpay={computed.overpay}
-        isOpen={tableOpen}
-        onToggle={() => setTableOpen((open) => !open)}
+          baseline={computed.baseline}
+          overpay={computed.overpay}
+          isOpen={tableOpen}
+          onToggle={() => setTableOpen((open) => !open)}
         />
+      </main>
 
       <PrivacySection />
 

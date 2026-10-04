@@ -21,7 +21,7 @@ export default function InputPanel({ inputs, setInput, computed }) {
   const update = (field) => (event) => setInput(field, event.target.value);
 
   return (
-    <div>
+    <div className="input-panel">
         <div className="card">
             <h2>Your mortgage</h2>
 
