@@ -11,6 +11,8 @@ GitHub Pages URL: https://amprew.github.io/mortgage-calculator/
 - `npm install`
 - `npm run dev` to run the React app
 - `npm run typecheck` to check all source, stories, and configuration types
+- `npm test` to run library regression tests once
+- `npm run test:watch` to rerun library tests as files change
 - `npm run build` to typecheck and build the package
 - `npm run build:pages` to typecheck and generate GitHub Pages files in `dist/`
 - `npm run storybook` to open the styleguide
@@ -28,6 +30,10 @@ GitHub Pages URL: https://amprew.github.io/mortgage-calculator/
 ## Notes
 
 The package keeps all mortgage calculations in the browser and does not call external APIs.
+
+## Tests
+
+Vitest tests live alongside the library code in `src/lib/*.test.ts`. They cover independently calculated loan payments, interest, regular and lump-sum overpayments, input normalization, formatting, date behavior, and chart values after early payoff. The Pages workflow runs these tests before building and deploying.
 
 ## GitHub Pages Deployment
 

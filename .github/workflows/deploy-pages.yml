@@ -27,6 +27,8 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Install dependencies
         run: npm ci
+      - name: Test library
+        run: npm test
       - name: Build static files
         run: npm run build:pages
       - name: Upload Pages artifact
