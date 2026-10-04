@@ -97,8 +97,6 @@ export default function InputPanel({ inputs, setInput, computed }: InputPanelPro
 
             <div className="sub-hint">Assumes the rate stays fixed for the whole term for comparison purposes.</div>
 
-            <div className="divider" />
-
         </div>
 
         <div className="card table-card">
