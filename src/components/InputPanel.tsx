@@ -121,7 +121,7 @@ export default function InputPanel({ inputs, setInput, computed }: InputPanelPro
             <NumberField
                 label="Applied in month"
                 valueText={`Month ${computed.lumpMonth}`}
-                hint={computed.lump > 0 ? "For example month 12 is one year from now." : "Used only when one-off lump sum is greater than 0."}
+                hint={computed.lump > 0 ? "For example month 12 is one year from now." : "Disabled until you enter a one-off lump sum greater than £0."}
                 input={{ value: inputs.lumpMonth, min: 1, step: 1, onChange: update("lumpMonth"), disabled: computed.lump <= 0 }}
             />
 
