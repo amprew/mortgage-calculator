@@ -2,6 +2,8 @@
 
 An open-source mortgage calculator. See exactly what overpaying does to a loan.
 
+GitHub Pages URL: https://amprew.github.io/mortgage-calculator/
+
 ![Example screenshot of dashboard](./docs/screenshot.png)
 
 ## Scripts
