@@ -111,8 +111,8 @@ export default function BalanceChart({ baseline, overpay, principal, lumpMonth, 
     >
       <defs>
         <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#00D9A3" stopOpacity="0.22" />
-          <stop offset="100%" stopColor="#00D9A3" stopOpacity="0" />
+          <stop offset="0%" stopColor="var(--mint)" stopOpacity="0.22" />
+          <stop offset="100%" stopColor="var(--mint)" stopOpacity="0" />
         </linearGradient>
       </defs>
 
@@ -120,7 +120,7 @@ export default function BalanceChart({ baseline, overpay, principal, lumpMonth, 
         const gridX = x(year * 12);
         return (
           <g key={year}>
-            <line x1={gridX} y1={padT} x2={gridX} y2={height - padB} stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+            <line x1={gridX} y1={padT} x2={gridX} y2={height - padB} stroke="var(--chart-grid)" strokeWidth="1" />
             <text className="axis-label" x={gridX} y={height - padB + 16} textAnchor="middle">
               Yr {year}
             </text>
@@ -145,23 +145,23 @@ export default function BalanceChart({ baseline, overpay, principal, lumpMonth, 
       ) : null}
 
       <polygon points={areaPts} fill="url(#areaFill)" />
-      <polyline points={baselinePts} fill="none" stroke="#5C5C66" strokeWidth="2" strokeDasharray="5,4" />
-      <polyline points={overpayPts} fill="none" stroke="#00D9A3" strokeWidth="2.5" />
+      <polyline points={baselinePts} fill="none" stroke="var(--text-3)" strokeWidth="2" strokeDasharray="5,4" />
+      <polyline points={overpayPts} fill="none" stroke="var(--mint)" strokeWidth="2.5" />
 
-      {payoffMarkerVisible ? <circle cx={x(finalOverpayMonth)} cy={y(0)} r="4.5" fill="#00D9A3" /> : null}
+      {payoffMarkerVisible ? <circle cx={x(finalOverpayMonth)} cy={y(0)} r="4.5" fill="var(--mint)" /> : null}
 
       {hoverData ? (
         <g>
-          <line x1={hoverData.x} y1={padT} x2={hoverData.x} y2={height - padB} stroke="rgba(255,255,255,0.25)" strokeWidth="1" />
-          <circle cx={hoverData.x} cy={hoverData.baselineY} r="3.8" fill="#5C5C66" />
-          <circle cx={hoverData.x} cy={hoverData.overpayY} r="4.2" fill="#00D9A3" />
+          <line x1={hoverData.x} y1={padT} x2={hoverData.x} y2={height - padB} stroke="var(--chart-hover)" strokeWidth="1" />
+          <circle cx={hoverData.x} cy={hoverData.baselineY} r="3.8" fill="var(--text-3)" />
+          <circle cx={hoverData.x} cy={hoverData.overpayY} r="4.2" fill="var(--mint)" />
 
           <g transform={`translate(${Math.min(width - 208, hoverData.x + 10)}, ${padT + 8})`}>
-            <rect width="198" height="66" rx="8" fill="rgba(22,22,27,0.92)" stroke="rgba(255,255,255,0.2)" />
-            <text x="10" y="16" className="axis-label" fill="#F5F5F7">Year {hoverData.year}</text>
-            <text x="10" y="34" className="axis-label" fill="#9C9CA6">Original: {formatCurrency(hoverData.baselineBalance)}</text>
-            <text x="10" y="50" className="axis-label" fill="#00D9A3">Overpay: {formatCurrency(hoverData.overpayBalance)}</text>
-            <text x="10" y="64" className="axis-label" fill="#F5F5F7">Gap: {formatCurrency(hoverData.difference)}</text>
+            <rect width="198" height="66" rx="8" fill="var(--tooltip-bg)" stroke="var(--border-strong)" />
+            <text x="10" y="16" className="axis-label" style={{ fill: "var(--text-1)" }}>Year {hoverData.year}</text>
+            <text x="10" y="34" className="axis-label" style={{ fill: "var(--text-2)" }}>Original: {formatCurrency(hoverData.baselineBalance)}</text>
+            <text x="10" y="50" className="axis-label" style={{ fill: "var(--mint)" }}>Overpay: {formatCurrency(hoverData.overpayBalance)}</text>
+            <text x="10" y="64" className="axis-label" style={{ fill: "var(--text-1)" }}>Gap: {formatCurrency(hoverData.difference)}</text>
           </g>
         </g>
       ) : null}

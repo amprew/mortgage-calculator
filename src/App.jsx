@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { Moon, Sun } from "lucide-react";
 import InputPanel from "./components/InputPanel";
 import StatsRow from "./components/StatsRow";
 import BalanceChart from "./components/BalanceChart";
@@ -20,6 +21,20 @@ const defaultInputs = {
 export default function App() {
   const [inputs, setInputs] = useState(defaultInputs);
   const [tableOpen, setTableOpen] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    try {
+      return localStorage.getItem("overpay-theme") === "light" ? "light" : "dark";
+    } catch {
+      return "dark";
+    }
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    try {
+      localStorage.setItem("overpay-theme", theme);
+    } catch {}
+  }, [theme]);
 
   const setInput = (field, value) => {
     setInputs((current) => ({
@@ -34,9 +49,20 @@ export default function App() {
     <div className="wrap">
       <header className="topbar">
         <div className="brand"><span className="brand-mark">🔒</span> overpay.calc</div>
+        <div className="header-actions">
         <div className="pulse-wrap">
           <div className="pulse-badge"><span className="pulse-dot" />Privacy-first: <b>calculated locally</b></div>
           <div className="pulse-tooltip">Your mortgage figures are processed in your browser tab and are not stored by this app.</div>
+        </div>
+          <button
+            className="theme-toggle"
+            type="button"
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            onClick={() => setTheme((current) => current === "dark" ? "light" : "dark")}
+          >
+            {theme === "dark" ? <Sun size={19} aria-hidden="true" /> : <Moon size={19} aria-hidden="true" />}
+          </button>
         </div>
       </header>
 

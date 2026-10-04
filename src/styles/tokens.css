@@ -1,4 +1,5 @@
 :root {
+  color-scheme: dark;
   --bg: #0a0a0d;
   --surface: #16161b;
   --surface-raised: #1d1d24;
@@ -11,6 +12,13 @@
   --text-1: #f5f5f7;
   --text-2: #9c9ca6;
   --text-3: #5c5c66;
+  --chart-grid: rgba(255, 255, 255, 0.05);
+  --chart-hover: rgba(255, 255, 255, 0.25);
+  --tooltip-bg: rgba(22, 22, 27, 0.96);
+  --strip-text: #ffd0be;
+  --warning-bg: rgba(255, 184, 0, 0.08);
+  --warning-border: rgba(255, 184, 0, 0.25);
+  --warning-text: #e8c468;
   --radius-lg: 22px;
   --radius-md: 14px;
   --radius-sm: 9px;
@@ -18,4 +26,27 @@
   --font-display: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
   --font-body: "Inter", "SF Pro Text", "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", "Menlo", monospace;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f3f5f6;
+  --surface: #ffffff;
+  --surface-raised: #eef1f3;
+  --border: rgba(25, 35, 42, 0.14);
+  --border-strong: rgba(25, 35, 42, 0.24);
+  --coral: #b74318;
+  --coral-dim: rgba(183, 67, 24, 0.08);
+  --mint: #007e60;
+  --mint-dim: rgba(0, 126, 96, 0.1);
+  --text-1: #20282e;
+  --text-2: #4c5962;
+  --text-3: #65727c;
+  --chart-grid: rgba(25, 35, 42, 0.09);
+  --chart-hover: rgba(25, 35, 42, 0.3);
+  --tooltip-bg: rgba(255, 255, 255, 0.96);
+  --strip-text: #913511;
+  --warning-bg: #fff6db;
+  --warning-border: #dfbd62;
+  --warning-text: #765513;
 }
