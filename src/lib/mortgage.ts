@@ -127,7 +127,7 @@ export function getStateFromInputs(inputs: MortgageInputs): MortgageState {
     Math.max(0, Number(inputs.deposit) || 0),
     price,
   );
-  const principal = Math.max(1000, price - normalizedDeposit);
+  const principal = price - normalizedDeposit;
   const rate = Math.max(0, Number(inputs.rate) || 0);
   const years = Math.max(1, Number(inputs.term) || 1);
   const regular = Math.max(0, Number(inputs.regular) || 0);

@@ -554,6 +554,24 @@ input[type="range"]::-webkit-slider-thumb {
   font-family: var(--font-mono);
 }
 
+.chart-disabled .chart,
+.chart-disabled .legend {
+  filter: grayscale(1);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.chart-disabled-note {
+  margin: 0 0 8px;
+  color: var(--text-2);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 320px;
+}
+
 .chart-tooltip {
   max-width: 280px;
   padding: 12px;

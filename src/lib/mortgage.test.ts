@@ -205,7 +205,7 @@ describe("getStateFromInputs", () => {
       expect(result).toMatchObject({
         price: 0,
         deposit: 0,
-        principal: 1000,
+        principal: 0,
         rate: 0,
         years: 1,
         regular: 0,
@@ -216,11 +216,21 @@ describe("getStateFromInputs", () => {
     },
   );
 
-  it("caps the deposit at the property price and preserves the current £1,000 minimum loan", () => {
+  it("caps the deposit at the property price without inventing a minimum loan", () => {
     const result = getStateFromInputs({ ...inputs, deposit: 500000 });
     expect(result.deposit).toBe(350000);
     expect(result.depositPct).toBe(100);
-    expect(result.principal).toBe(1000);
+    expect(result.principal).toBe(0);
+  });
+
+  it("preserves actual principal amounts below £1,000", () => {
+    const result = getStateFromInputs({
+      ...inputs,
+      price: 1500,
+      deposit: 1000,
+    });
+    expect(result.principal).toBe(500);
+    expect(result.baseline.history[0].balance).toBe(500);
   });
 
   it("rounds the lump-sum month to the nearest integer", () => {

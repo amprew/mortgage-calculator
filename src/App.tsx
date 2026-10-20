@@ -47,6 +47,7 @@ export default function App() {
   };
 
   const computed = useMemo(() => getStateFromInputs(inputs), [inputs]);
+  const chartsDisabled = computed.principal < 1000;
 
   return (
     <div className="wrap">
@@ -112,7 +113,10 @@ export default function App() {
             monthsSaved={computed.monthsSaved}
           />
 
-          <div className="card chart-card balance-panel">
+          <div
+            className={`card chart-card balance-panel${chartsDisabled ? " chart-disabled" : ""}`}
+            aria-disabled={chartsDisabled}
+          >
             <div className="chart-head">
               <h2>Balance over time</h2>
               <div className="legend">
@@ -126,16 +130,26 @@ export default function App() {
                 </div>
               </div>
             </div>
-            <BalanceChart
-              baseline={computed.baseline}
-              overpay={computed.overpay}
-              principal={computed.principal}
-              lumpMonth={computed.lumpMonth}
-              lumpValue={computed.lump}
-            />
+            {chartsDisabled && (
+              <p className="chart-disabled-note">
+                Charts are available for loans of £1,000 or more.
+              </p>
+            )}
+            {!chartsDisabled && (
+              <BalanceChart
+                baseline={computed.baseline}
+                overpay={computed.overpay}
+                principal={computed.principal}
+                lumpMonth={computed.lumpMonth}
+                lumpValue={computed.lump}
+              />
+            )}
           </div>
 
-          <div className="card chart-card interest-panel">
+          <div
+            className={`card chart-card interest-panel${chartsDisabled ? " chart-disabled" : ""}`}
+            aria-disabled={chartsDisabled}
+          >
             <div className="chart-head">
               <h2>Interest over time</h2>
               <div className="legend">
@@ -149,10 +163,17 @@ export default function App() {
                 </div>
               </div>
             </div>
-            <InterestChart
-              baseline={computed.baseline}
-              overpay={computed.overpay}
-            />
+            {chartsDisabled && (
+              <p className="chart-disabled-note">
+                Charts are available for loans of £1,000 or more.
+              </p>
+            )}
+            {!chartsDisabled && (
+              <InterestChart
+                baseline={computed.baseline}
+                overpay={computed.overpay}
+              />
+            )}
           </div>
         </div>
 
