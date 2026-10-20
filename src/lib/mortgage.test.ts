@@ -45,10 +45,10 @@ describe("addMonths", () => {
     expect(result.getMonth()).toBe(11);
   });
 
-  it("uses native Date rollover for months without the original day", () => {
+  it("clamps to the last day of months without the original day", () => {
     const result = addMonths(new Date(2026, 0, 31), 1);
-    expect(result.getMonth()).toBe(2);
-    expect(result.getDate()).toBe(3);
+    expect(result.getMonth()).toBe(1);
+    expect(result.getDate()).toBe(28);
   });
 
   it("exports month names in calendar order", () => {

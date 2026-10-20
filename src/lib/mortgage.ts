@@ -53,7 +53,12 @@ export function formatCurrency(value: number, decimals = 0): string {
 
 export function addMonths(date: Date, months: number): Date {
   const d = new Date(date.getTime());
+  // Keep dates in the target month when the original day does not exist there.
+  const day = d.getDate();
+  d.setDate(1);
   d.setMonth(d.getMonth() + months);
+  const lastDay = new Date(d.getFullYear(), d.getMonth()+1, 0).getDate();
+  d.setDate(Math.min(day, lastDay))
   return d;
 }
 
