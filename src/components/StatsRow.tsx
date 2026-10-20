@@ -9,7 +9,12 @@ interface StatsRowProps {
   monthsSaved: number;
 }
 
-export default function StatsRow({ baseline, overpay, interestSaved, monthsSaved }: StatsRowProps) {
+export default function StatsRow({
+  baseline,
+  overpay,
+  interestSaved,
+  monthsSaved,
+}: StatsRowProps) {
   const yearsSaved = Math.floor(monthsSaved / 12);
   const remainingMonths = monthsSaved % 12;
 
@@ -17,9 +22,10 @@ export default function StatsRow({ baseline, overpay, interestSaved, monthsSaved
   const overpayDate = addMonths(today, overpay.months);
   const baselineDate = addMonths(today, baseline.months);
 
-  const payoffText = monthsSaved > 0
-    ? `Paid off ${monthNames[overpayDate.getMonth()]} ${overpayDate.getFullYear()} instead of ${monthNames[baselineDate.getMonth()]} ${baselineDate.getFullYear()}`
-    : `Paid off ${monthNames[overpayDate.getMonth()]} ${overpayDate.getFullYear()}`;
+  const payoffText =
+    monthsSaved > 0
+      ? `Paid off ${monthNames[overpayDate.getMonth()]} ${overpayDate.getFullYear()} instead of ${monthNames[baselineDate.getMonth()]} ${baselineDate.getFullYear()}`
+      : `Paid off ${monthNames[overpayDate.getMonth()]} ${overpayDate.getFullYear()}`;
 
   return (
     <div className="stat-row">
@@ -32,12 +38,19 @@ export default function StatsRow({ baseline, overpay, interestSaved, monthsSaved
       <div className="stat">
         <div className="stat-label">Interest you&apos;ll save</div>
         <div className="stat-num mint">{formatCurrency(interestSaved)}</div>
-        <div className="stat-sub">{formatCurrency(baseline.totalInterest)} to {formatCurrency(overpay.totalInterest)} total interest</div>
+        <div className="stat-sub">
+          {formatCurrency(baseline.totalInterest)} to{" "}
+          {formatCurrency(overpay.totalInterest)} total interest
+        </div>
       </div>
 
       <div className="stat">
         <div className="stat-label">Time you&apos;ll save</div>
-        <div className="stat-num mint">{monthsSaved > 0 ? `${yearsSaved > 0 ? `${yearsSaved}y ` : ""}${remainingMonths}mo` : "0 mo"}</div>
+        <div className="stat-num mint">
+          {monthsSaved > 0
+            ? `${yearsSaved > 0 ? `${yearsSaved}y ` : ""}${remainingMonths}mo`
+            : "0 mo"}
+        </div>
         <div className="stat-sub">{payoffText}</div>
       </div>
     </div>
