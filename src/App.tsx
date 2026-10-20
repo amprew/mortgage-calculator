@@ -16,7 +16,7 @@ const defaultInputs: MortgageInputs = {
   term: 25,
   regular: 0,
   lump: 0,
-  lumpMonth: 12
+  lumpMonth: 12,
 };
 
 export default function App() {
@@ -24,7 +24,9 @@ export default function App() {
   const [tableOpen, setTableOpen] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">(() => {
     try {
-      return localStorage.getItem("overpay-theme") === "dark" ? "dark" : "light";
+      return localStorage.getItem("overpay-theme") === "dark"
+        ? "dark"
+        : "light";
     } catch {
       return "light";
     }
@@ -40,7 +42,7 @@ export default function App() {
   const setInput: SetMortgageInput = (field, value) => {
     setInputs((current) => ({
       ...current,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -49,28 +51,54 @@ export default function App() {
   return (
     <div className="wrap">
       <header className="topbar">
-        <div className="brand"><img className="brand-mark" src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" width={26} height={26} /> OS Repayments</div>
-        <div className="header-actions">
-        <div className="pulse-wrap">
-          <div className="pulse-badge"><span className="pulse-dot" />Privacy-first: <b>calculated locally</b></div>
-          <div className="pulse-tooltip">Your mortgage figures are processed in your browser tab and are not stored by this app.</div>
+        <div className="brand">
+          <img
+            className="brand-mark"
+            src={`${import.meta.env.BASE_URL}favicon.svg`}
+            alt=""
+            width={26}
+            height={26}
+          />{" "}
+          OS Repayments
         </div>
+        <div className="header-actions">
+          <div className="pulse-wrap">
+            <div className="pulse-badge">
+              <span className="pulse-dot" />
+              Privacy-first: <b>calculated locally</b>
+            </div>
+            <div className="pulse-tooltip">
+              Your mortgage figures are processed in your browser tab and are
+              not stored by this app.
+            </div>
+          </div>
           <button
             className="theme-toggle"
             type="button"
             aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
             title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-            onClick={() => setTheme((current) => current === "dark" ? "light" : "dark")}
+            onClick={() =>
+              setTheme((current) => (current === "dark" ? "light" : "dark"))
+            }
           >
-            {theme === "dark" ? <Sun size={19} aria-hidden="true" /> : <Moon size={19} aria-hidden="true" />}
+            {theme === "dark" ? (
+              <Sun size={19} aria-hidden="true" />
+            ) : (
+              <Moon size={19} aria-hidden="true" />
+            )}
           </button>
         </div>
       </header>
 
       <section className="hero">
         <div className="eyebrow">Mortgage overpayment calculator</div>
-        <h1>See exactly what overpaying does to <span>your</span> mortgage.</h1>
-        <p>Model regular monthly overpayments and one-off lump sums side by side with your baseline schedule.</p>
+        <h1>
+          See exactly what overpaying does to <span>your</span> mortgage.
+        </h1>
+        <p>
+          Model regular monthly overpayments and one-off lump sums side by side
+          with your baseline schedule.
+        </p>
       </section>
 
       <main className="layout">
@@ -88,8 +116,14 @@ export default function App() {
             <div className="chart-head">
               <h2>Balance over time</h2>
               <div className="legend">
-                <div className="legend-item"><span className="legend-swatch muted" />Original schedule</div>
-                <div className="legend-item"><span className="legend-swatch mint" />With overpayments</div>
+                <div className="legend-item">
+                  <span className="legend-swatch muted" />
+                  Original schedule
+                </div>
+                <div className="legend-item">
+                  <span className="legend-swatch mint" />
+                  With overpayments
+                </div>
               </div>
             </div>
             <BalanceChart
@@ -105,8 +139,14 @@ export default function App() {
             <div className="chart-head">
               <h2>Interest over time</h2>
               <div className="legend">
-                <div className="legend-item"><span className="legend-swatch muted" />Original schedule</div>
-                <div className="legend-item"><span className="legend-swatch mint" />With overpayments</div>
+                <div className="legend-item">
+                  <span className="legend-swatch muted" />
+                  Original schedule
+                </div>
+                <div className="legend-item">
+                  <span className="legend-swatch mint" />
+                  With overpayments
+                </div>
               </div>
             </div>
             <InterestChart
@@ -114,7 +154,6 @@ export default function App() {
               overpay={computed.overpay}
             />
           </div>
-
         </div>
 
         <YearlyTable
@@ -129,7 +168,11 @@ export default function App() {
 
       <footer>
         <p>Estimates are for comparison only and are not financial advice.</p>
-        <p><a href="https://github.com/amprew/mortgage-calculator">View open-source project on GitHub.</a></p>
+        <p>
+          <a href="https://github.com/amprew/mortgage-calculator">
+            View open-source project on GitHub.
+          </a>
+        </p>
       </footer>
     </div>
   );

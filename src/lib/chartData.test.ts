@@ -12,7 +12,9 @@ describe("getChartData", () => {
     expect(result[0]).toEqual({ month: 0, original: 1200, overpayment: 1200 });
     expect(result[1]).toEqual({ month: 1, original: 1100, overpayment: 1000 });
     expect(result[6]).toEqual({ month: 6, original: 600, overpayment: 0 });
-    expect(result.slice(6).every((point) => point.overpayment === 0)).toBe(true);
+    expect(result.slice(6).every((point) => point.overpayment === 0)).toBe(
+      true,
+    );
     expect(result.at(-1)).toEqual({ month: 12, original: 0, overpayment: 0 });
   });
 
@@ -22,15 +24,22 @@ describe("getChartData", () => {
     const result = getChartData(baseline, overpay, "cumInterest");
     expect(result[0]).toEqual({ month: 0, original: 0, overpayment: 0 });
     expect(result[1]).toEqual({ month: 1, original: 12, overpayment: 12 });
-    expect(result.slice(1).every((point) => point.overpayment === 12)).toBe(true);
+    expect(result.slice(1).every((point) => point.overpayment === 12)).toBe(
+      true,
+    );
     expect(result.at(-1)?.original).toBeCloseTo(79.4225569, 6);
   });
 
-  it.each(["balance", "cumInterest"] as const)("shows identical series without overpayments (%s)", (metric) => {
-    const baseline = simulate(280000, 4.5, 25, 0, 0, 0);
-    const result = getChartData(baseline, baseline, metric);
-    expect(result.every((point) => point.original === point.overpayment)).toBe(true);
-  });
+  it.each(["balance", "cumInterest"] as const)(
+    "shows identical series without overpayments (%s)",
+    (metric) => {
+      const baseline = simulate(280000, 4.5, 25, 0, 0, 0);
+      const result = getChartData(baseline, baseline, metric);
+      expect(
+        result.every((point) => point.original === point.overpayment),
+      ).toBe(true);
+    },
+  );
 
   it("carries the most recent point forward when history has gaps", () => {
     const baseline = simulate(1200, 0, 1, 0, 0, 0);
@@ -39,8 +48,8 @@ describe("getChartData", () => {
       history: [
         { month: 0, balance: 1200, cumInterest: 0 },
         { month: 3, balance: 800, cumInterest: 30 },
-        { month: 6, balance: 0, cumInterest: 50 }
-      ]
+        { month: 6, balance: 0, cumInterest: 50 },
+      ],
     };
     const balances = getChartData(baseline, overpay, "balance");
     const interest = getChartData(baseline, overpay, "cumInterest");

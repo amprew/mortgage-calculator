@@ -8,8 +8,8 @@ export const parameters: Preview["parameters"] = {
   controls: {
     matchers: {
       color: /(background|color)$/i,
-      date: /Date$/i
-    }
+      date: /Date$/i,
+    },
   },
-  layout: "fullscreen"
+  layout: "fullscreen",
 };

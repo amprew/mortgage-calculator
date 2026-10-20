@@ -3,7 +3,7 @@ import App from "../src/App";
 
 const meta = {
   title: "Mortgage/App",
-  component: App
+  component: App,
 } satisfies Meta<typeof App>;
 
 export default meta;

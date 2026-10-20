@@ -40,12 +40,13 @@ Vitest tests live alongside the library code in `src/lib/*.test.ts`. They cover 
 1. In `amprew/mortgage-calculator`, open **Settings > Pages** and select **GitHub Actions** as the build and deployment source.
 2. To generate the static files locally, run:
 
-	```sh
-	npm ci
-	npm run build:pages
-	```
+   ```sh
+   npm ci
+   npm run build:pages
+   ```
 
-	The output is `dist/index.html` and `dist/assets/`. This build uses `/mortgage-calculator/` as the asset base path. The normal build and development server are unchanged.
+   The output is `dist/index.html` and `dist/assets/`. This build uses `/mortgage-calculator/` as the asset base path. The normal build and development server are unchanged.
+
 3. Commit and push the deployment workflow, build script, and documentation to `main`. The **Deploy to GitHub Pages** workflow installs dependencies, typechecks, builds, uploads `dist/`, and deploys it. Do not commit `dist/` or create a `gh-pages` branch for this workflow.
 4. Monitor the workflow in the repository's **Actions** tab. Once deployment succeeds, open <https://amprew.github.io/mortgage-calculator/>. Future pushes to `main` deploy automatically; use **Run workflow** for a manual deployment.
 

@@ -8,7 +8,10 @@ export interface MortgageInputs {
   lumpMonth: number | string;
 }
 
-export type SetMortgageInput = (field: keyof MortgageInputs, value: number | string) => void;
+export type SetMortgageInput = (
+  field: keyof MortgageInputs,
+  value: number | string,
+) => void;
 
 export interface HistoryEntry {
   month: number;
@@ -41,13 +44,26 @@ export interface MortgageState {
   depositPct: number;
 }
 
-export const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export const monthNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 export function formatCurrency(value: number, decimals = 0): string {
   return new Intl.NumberFormat("en-GB", {
     style: "currency",
     currency: "GBP",
-    maximumFractionDigits: decimals
+    maximumFractionDigits: decimals,
   }).format(Math.max(0, value));
 }
 
@@ -57,15 +73,23 @@ export function addMonths(date: Date, months: number): Date {
   const day = d.getDate();
   d.setDate(1);
   d.setMonth(d.getMonth() + months);
-  const lastDay = new Date(d.getFullYear(), d.getMonth()+1, 0).getDate();
-  d.setDate(Math.min(day, lastDay))
+  const lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+  d.setDate(Math.min(day, lastDay));
   return d;
 }
 
-export function simulate(principal: number, annualRatePct: number, years: number, regularOverpay: number, lumpSum: number, lumpMonth: number): SimulationResult {
+export function simulate(
+  principal: number,
+  annualRatePct: number,
+  years: number,
+  regularOverpay: number,
+  lumpSum: number,
+  lumpMonth: number,
+): SimulationResult {
   const r = annualRatePct / 100 / 12;
   const n = Math.max(1, Math.round(years * 12));
-  const payment = r === 0 ? principal / n : (principal * r) / (1 - Math.pow(1 + r, -n));
+  const payment =
+    r === 0 ? principal / n : (principal * r) / (1 - Math.pow(1 + r, -n));
 
   let balance = principal;
   let totalInterest = 0;
@@ -99,7 +123,10 @@ export function simulate(principal: number, annualRatePct: number, years: number
 
 export function getStateFromInputs(inputs: MortgageInputs): MortgageState {
   const price = Math.max(0, Number(inputs.price) || 0);
-  const normalizedDeposit = Math.min(Math.max(0, Number(inputs.deposit) || 0), price);
+  const normalizedDeposit = Math.min(
+    Math.max(0, Number(inputs.deposit) || 0),
+    price,
+  );
   const principal = Math.max(1000, price - normalizedDeposit);
   const rate = Math.max(0, Number(inputs.rate) || 0);
   const years = Math.max(1, Number(inputs.term) || 1);
@@ -113,7 +140,8 @@ export function getStateFromInputs(inputs: MortgageInputs): MortgageState {
   const interestSaved = baseline.totalInterest - overpay.totalInterest;
   const monthsSaved = baseline.months - overpay.months;
   const annualOverpay = regular * 12 + (lumpMonth <= 12 ? lump : 0);
-  const depositPct = price > 0 ? Math.round((normalizedDeposit / price) * 100) : 0;
+  const depositPct =
+    price > 0 ? Math.round((normalizedDeposit / price) * 100) : 0;
 
   return {
     price,
@@ -129,6 +157,6 @@ export function getStateFromInputs(inputs: MortgageInputs): MortgageState {
     interestSaved,
     monthsSaved,
     annualOverpay,
-    depositPct
+    depositPct,
   };
 }

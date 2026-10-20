@@ -14,8 +14,16 @@ body,
 
 body {
   background:
-    radial-gradient(ellipse 900px 500px at 15% -10%, rgba(255, 122, 69, 0.1), transparent 60%),
-    radial-gradient(ellipse 700px 500px at 100% 0%, rgba(0, 217, 163, 0.06), transparent 60%),
+    radial-gradient(
+      ellipse 900px 500px at 15% -10%,
+      rgba(255, 122, 69, 0.1),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 700px 500px at 100% 0%,
+      rgba(0, 217, 163, 0.06),
+      transparent 60%
+    ),
     var(--bg);
   color: var(--text-1);
   font-family: var(--font-body);
